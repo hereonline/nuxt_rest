@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 
+const state = reactive({
+  name: undefined,
+  description: undefined,
+  date: undefined
+})
 
-const name = ref('')
-const description = ref('')
-const date = ref(new Date())
 
 const onSubmit = async () => {
     try {
@@ -13,12 +14,7 @@ const onSubmit = async () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                name: name.value,
-                description: description.value,
-                date: date.value
-             
-            })
+            body: JSON.stringify(state)
         })
         const data = await response.json()
         console.log(data)
@@ -29,15 +25,15 @@ const onSubmit = async () => {
 </script>
 
 <template>
-    <UForm class="space-y-4" @submit="onSubmit">
+    <UForm class="space-y-4" @submit="onSubmit" :state="state">
         <UFormGroup label="Name" name="name">
-            <UInput v-model="name" />
+            <UInput v-model="state.name" />
         </UFormGroup>
         <UFormGroup label="Description" name="description">
-            <UInput v-model="description" />
+            <UInput v-model="state.description" />
         </UFormGroup>
         <UFormGroup label="Date" name="date">
-            <UInput type="date" v-model="date" />
+            <UInput type="date" v-model="state.date" />
         </UFormGroup>
         <UButton type="submit">
             Submit

@@ -28,12 +28,12 @@ const columns = [
 },
 ]
 
+const { data: count } = await useFetch('http://localhost:8081/event')
 
-const { data, pending } = await useLazyFetch(() => `http://localhost:8081/event?orderBy=${sort.value.column}&order=${sort.value.direction}`)
 </script>
 
 <template>
-  <UTable v-model:sort="sort" :loading="pending" :columns="columns" :rows="data" sort-mode="auto" />
+  <UTable v-model:sort="sort" :columns="columns" :rows="count" sort-mode="auto" />
       <UButton row="delete" >Löschen</UButton>
   <UploadForm/>
 </template>
