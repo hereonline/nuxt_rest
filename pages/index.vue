@@ -33,7 +33,7 @@ const { data: count } = await useFetch('http://localhost:8081/event')
 </script>
 
 <template>
-  <UTable v-model:sort="sort" :columns="columns" :rows="count" sort-mode="auto" />
+  <UTable :columns="columns" :rows="count" />
       <UButton row="delete" >Löschen</UButton>
   <UploadForm/>
 </template>
