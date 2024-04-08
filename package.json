@@ -13,8 +13,12 @@
     "@nuxt/ui": "^2.15.1",
     "date-fns": "^3.6.0",
     "nuxt": "^3.11.1",
+    "nuxt-stripe-module": "^3.2.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
     "yup": "^1.4.0"
+  },
+  "devDependencies": {
+    "@unlok-co/nuxt-stripe": "^2.0.0"
   }
 }

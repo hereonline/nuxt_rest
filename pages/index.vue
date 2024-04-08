@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
 import UploadForm from './UploadForm.vue'; 
+import Stripe from './stripe.vue'; 
 
 const sort = ref({
   column: 'name',
@@ -33,8 +34,9 @@ const columns = [
 
 
 const { data: count } = await useFetch('http://localhost:8081/event')
-
-const deleteId = ref('');
+if (!count.value) {
+  count.value = []; 
+}
 
 const deleteRow = async (id: number) => {
   await fetch(`http://localhost:8081/event/${id}`, {
@@ -53,5 +55,6 @@ const deleteRow = async (id: number) => {
       </template>
     </UTable>
   <UploadForm/>
+  <Stripe/>
 </template>
 
