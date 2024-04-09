@@ -16,9 +16,9 @@
       return;
     }
   
-    // Ersetzen Sie diese Optionen durch Ihre spezifischen Checkout-Optionen
+    
     const { error } = await stripe.value.redirectToCheckout({
-      lineItems: [{ price: 'price_1P3MrdCzSI00rA1V6hkdzEB8', quantity: 2 }], // Ersetzen Sie 'price_ID' durch Ihre Produkt-/Preis-ID
+      lineItems: [{ price: 'price_1P3MrdCzSI00rA1V6hkdzEB8', quantity: 2 }], 
       mode: 'payment',
       successUrl: window.location.origin + '/check',
       cancelUrl: window.location.origin + '/test',
