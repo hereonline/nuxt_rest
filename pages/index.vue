@@ -3,10 +3,7 @@
 import UploadForm from './UploadForm.vue'; 
 import Stripe from './stripe.vue'; 
 
-const sort = ref({
-  column: 'name',
-  direction: 'desc',
-})
+const events = ref([]);
 
 const columns = [
 {
@@ -33,10 +30,26 @@ const columns = [
 }]
 
 
-const { data: count } = await useFetch('http://localhost:8081/event')
-if (!count.value) {
-  count.value = []; 
-}
+
+const { data, execute, refresh } = await useFetch('http://localhost:8081/event');
+
+onMounted(async () => {
+  try {
+    await execute();
+    events.value = data.value;
+    console.log('Geladene Daten:', events.value);
+  } catch (error) {
+    console.error('Fehler beim Laden der Daten:', error);
+  }
+});
+
+
+//const { data, refresh } = await useFetch('http://localhost:8081/event')
+
+
+//const { data, execute } = useFetch('http://localhost:8081/event');
+
+
 
 const deleteRow = async (id: number) => {
   await fetch(`http://localhost:8081/event/${id}`, {
@@ -49,12 +62,15 @@ const deleteRow = async (id: number) => {
 </script>
 
 <template>
-    <UTable :columns="columns" :rows="count" >
+
+    <UTable :columns="columns" :rows="events" >
       <template #actions-data="{ row }">   
         <UButton @click="deleteRow(row.id)" color="green" variant="ghost" icon="i-heroicons-trash-20-solid" />
       </template>
     </UTable>
+   <UButton @click="refresh">Refresh</UButton>
   <UploadForm/>
   <Stripe/>
+ 
 </template>
 
